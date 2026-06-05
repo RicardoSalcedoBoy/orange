@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths":{
+      "@mocks/*": ["mocks/*"],
+      "@pages/*": ["pages/*"],
+      "@fixtures/*": ["fixtures/*"],
+      "@components/*": ["components/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@services/*": ["services/*"]
+    },
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["**/*", "playwright.config.ts"],
+  "exclude": [
+    "node_modules",
+    "playwright-report",
+    "test-results",
+    "blob-report",       // Reportes internos de Playwright
+    "playwright/.cache", // Caché de navegadores descargados
+    "dist",              // Carpetas de compilación común
+    "build"
+  ]
+}
