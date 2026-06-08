@@ -2,10 +2,17 @@
   "name": "orange",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
-  "main": "index.js",
-  "scripts": {},
-  "keywords": [],
+  "description": "AI-augmented QA framework: Playwright + Claude-powered test generation and review",
+  "scripts": {
+    "review": "npx tsx src/cli-review.ts",
+    "automation": "npx tsx src/cli-automation.ts",
+    "pipeline": "npx tsx src/cli.ts",
+    "golden-set": "npx tsx -e \"import('./src/goldenSetValidator.ts').then(m => m.runGoldenSetValidation())\"",
+    "test": "playwright test",
+    "test:ai": "playwright test tests/sdet_ai_golden.spec.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["playwright", "qa", "ai", "sdet", "claude"],
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -14,6 +21,8 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.102.0",
+    "commander": "^14.0.3",
     "dotenv": "^17.4.2",
     "zod": "^4.4.3"
   }

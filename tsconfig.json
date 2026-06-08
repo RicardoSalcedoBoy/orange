@@ -5,6 +5,7 @@
     "moduleResolution": "NodeNext",
     "allowImportingTsExtensions": true,
     "noEmit": true,
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths":{
       "@mocks/*": ["mocks/*"],
@@ -12,7 +13,8 @@
       "@fixtures/*": ["fixtures/*"],
       "@components/*": ["components/*"],
       "@interfaces/*": ["interfaces/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@interceptors/*": ["interceptors/*"]
     },
     "strict": true,
     "esModuleInterop": true,

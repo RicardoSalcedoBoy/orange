@@ -1,27 +1,67 @@
 [
   {
     "evalId": "GOLDEN-REVIEW-001",
-    "description": "Validar endpoint complejo con herramientas mixtas",
+    "description": "Mixed-tooling endpoint: plan must reference both Playwright and Postman",
     "inputs": {
       "jiraId": "QA-205",
       "prUrl": "https://github.com"
     },
     "assertions": {
-      "expectedJsonFields": [
-        "summary",
-        "tools_required",
-        "test_cases",
-        "risk_analysis" // Validamos que la IA haya hecho el análisis de riesgos
-      ],
-      "mandatoryKeywordsInPlan": [
-        "Playwright", // Debe sugerir automatización
-        "Postman",    // Debe sugerir exploración manual
-        "security"
-      ],
-      "forbiddenKeywords": [
-        "Selenium",   // Herramienta legacy que no queremos usar
-        "Excel"       // No queremos reportes manuales en Excel
-      ]
+      "expectedJsonFields": ["summary", "tools_required", "test_cases", "risk_analysis"],
+      "mandatoryKeywordsInPlan": ["Playwright", "Postman", "security"],
+      "forbiddenKeywords": ["Selenium", "Excel"]
+    }
+  },
+  {
+    "evalId": "GOLDEN-REVIEW-002",
+    "description": "Auth-related ticket: plan must include 401/403 coverage and mark cases P0",
+    "inputs": {
+      "jiraId": "QA-301",
+      "prUrl": "https://github.com"
+    },
+    "assertions": {
+      "expectedJsonFields": ["summary", "tools_required", "test_cases", "risk_analysis"],
+      "mandatoryKeywordsInPlan": ["security", "P0", "unauthorized"],
+      "forbiddenKeywords": ["Selenium", "Excel"]
+    }
+  },
+  {
+    "evalId": "GOLDEN-REVIEW-003",
+    "description": "Performance-critical feature: plan must include k6 and at least one P0 case",
+    "inputs": {
+      "jiraId": "QA-450",
+      "prUrl": "https://github.com"
+    },
+    "assertions": {
+      "expectedJsonFields": ["summary", "tools_required", "test_cases", "risk_analysis"],
+      "mandatoryKeywordsInPlan": ["k6", "performance", "P0"],
+      "forbiddenKeywords": ["Selenium", "Excel"]
+    }
+  },
+  {
+    "evalId": "GOLDEN-REVIEW-004",
+    "description": "Ambiguous ticket: plan must still contain at least one Manual and one Automation case",
+    "inputs": {
+      "jiraId": "QA-099",
+      "prUrl": "https://github.com"
+    },
+    "assertions": {
+      "expectedJsonFields": ["summary", "tools_required", "test_cases", "risk_analysis"],
+      "mandatoryKeywordsInPlan": ["Manual", "Automation"],
+      "forbiddenKeywords": ["Selenium", "Excel"]
+    }
+  },
+  {
+    "evalId": "GOLDEN-REVIEW-005",
+    "description": "Risk analysis must always include both security and performance assessments",
+    "inputs": {
+      "jiraId": "QA-600",
+      "prUrl": "https://github.com"
+    },
+    "assertions": {
+      "expectedJsonFields": ["summary", "tools_required", "test_cases", "risk_analysis"],
+      "mandatoryKeywordsInPlan": ["security", "performance"],
+      "forbiddenKeywords": ["Selenium", "Excel"]
     }
   }
 ]

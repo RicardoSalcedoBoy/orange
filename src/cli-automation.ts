@@ -1,34 +1,38 @@
 import { Command } from 'commander';
-import { SdetAutomationSkill } from './SdetAutomationSkill';
-import * as fs from 'fs';
-import * as path from 'path';
+import { SdetAutomationSkill } from '../skills/SdetAutomationSkill.ts';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { basename, join } from 'path';
 
 const program = new Command();
+
 program
-    .requiredOption('-f, --file <path>', 'Ruta del archivo JSON de reporte generado por el Skill 1')
+    .name('sdet-automation')
+    .description('Generate Playwright scripts from a JSON test plan produced by sdet-review')
+    .version('1.0.0')
+    .requiredOption('-f, --file <path>', 'Path to the JSON test plan (e.g. ai-output/QA-502-plan.json)')
     .action(async (options) => {
+        const { file } = options as { file: string };
+
+        if (!existsSync(file)) {
+            console.error(`File not found: ${file}`);
+            process.exit(1);
+        }
+
         try {
-            // Validar si el archivo existe antes de llamar a la IA
-            if (!fs.existsSync(options.file)) {
-                throw new Error(`El archivo especificado no existe: ${options.file}`);
-            }
+            const jsonTestPlan = readFileSync(file, 'utf8');
+            const skill = new SdetAutomationSkill();
 
-            // LEER el reporte generado por el Skill 1
-            const jsonTestPlan = fs.readFileSync(options.file, 'utf8');
+            console.log(`\n[Automation] Generating Playwright scripts from: ${file}`);
+            const code = await skill.generatePlaywrightTests(jsonTestPlan);
 
-            const automationSkill = new SdetAutomationSkill();
-            console.log(`[Automation] Leyendo reporte e iniciando generación de código Playwright...`);
+            const baseName = basename(file, '.json');
+            const outputPath = join(process.cwd(), 'ai-output', `${baseName}-tests.ts`);
+            writeFileSync(outputPath, code, 'utf8');
 
-            const codeOutput = await automationSkill.generatePlaywrightTests(jsonTestPlan);
-
-            // Guardar el código final en un archivo markdown o .spec.ts
-            const baseName = path.basename(options.file, '.json');
-            const outputPath = path.join(process.cwd(), `${baseName}-spec.md`);
-            fs.writeFileSync(outputPath, codeOutput, 'utf8');
-
-            console.log(`✅ Scripts de Playwright guardados con éxito en: ${outputPath}`);
-        } catch (error: any) {
-            console.error('❌ Error en Skill de Automation:', error.message);
+            console.log(`\nPlaywright scripts saved to: ${outputPath}`);
+        } catch (err: any) {
+            console.error(`\nError: ${err.message}`);
+            process.exit(1);
         }
     });
 

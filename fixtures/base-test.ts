@@ -1,6 +1,6 @@
 import { expect, test as base } from "@playwright/test";
-import LoginPage from "@pages/login-page.ts"
-import SidebarComponent from "@components/side-bar-component.ts"
+import LoginPage from "@pages/login-page.ts";
+import SidebarComponent from "@components/side-bar-component.ts";
 import { adminPassword, adminUsername } from "../config-env.ts";
 import TopBarComponent from "@components/top-bar-component.ts";
 import DashboardPage from "@pages/dashboard-page.ts";
@@ -37,9 +37,9 @@ export const test = base.extend<MyFixtures>({
         await use(new TopBarComponent(page));
     },
 
-    loggedInPage: [async ({ page, loginPage }, use) => {
+    loggedInPage: [async ({ page }, use) => {
         await page.goto('/');
-        await loginPage.signInWithCredentials(adminUsername!, adminPassword!);
+        await new LoginPage(page).signInWithCredentials(adminUsername, adminPassword);
         await expect(page).toHaveURL(/.*dashboard/);
         await use();
     }, { auto: true }]
