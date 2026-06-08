@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { SdetReviewSkill } from '../skills/SdetReviewSkill.ts';
 import { mkdirSync, writeFileSync, existsSync } from 'fs';
 import { join } from 'path';
+import 'dotenv/config';
 
 const program = new Command();
 

@@ -3,7 +3,7 @@ import { baseAPIURL } from '../config-env.ts';
 
 const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-export const waitForPim = async(page: Page) => {
+export const waitForPim = async (page: Page): Promise<Response> => {
     const pattern = new RegExp(`${escapeRegex(baseAPIURL)}/pim/employees/\\d+(\\?.*)?`);
-    return page.waitForResponse(pattern, {timeout: 10000});
-}
+    return page.waitForResponse(pattern, { timeout: 10000 });
+};

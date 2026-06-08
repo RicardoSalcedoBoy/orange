@@ -7,17 +7,24 @@
     "review": "npx tsx src/cli-review.ts",
     "automation": "npx tsx src/cli-automation.ts",
     "pipeline": "npx tsx src/cli.ts",
-    "golden-set": "npx tsx -e \"import('./src/goldenSetValidator.ts').then(m => m.runGoldenSetValidation())\"",
+    "golden-set": "npx tsx run-golden-set.ts",
     "test": "playwright test",
     "test:ai": "playwright test tests/sdet_ai_golden.spec.ts",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": ["playwright", "qa", "ai", "sdet", "claude"],
+  "keywords": [
+    "playwright",
+    "qa",
+    "ai",
+    "sdet",
+    "claude"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.1",
+    "tsx": "^4.22.4",
     "typescript": "^6.0.3"
   },
   "dependencies": {
