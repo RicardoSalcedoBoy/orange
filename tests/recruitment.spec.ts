@@ -13,7 +13,7 @@ test.describe('Recruitment tests', () => {
         });
 
         // 2. Ejecutamos la acción de navegación y el radar en paralelo (Evita Flaky Tests)
-        await Promise.all([
+        const [interceptorResponse] = await Promise.all([
             RecruitmentInterceptor.waitFor(page, 'candidates'), // Escucha la red de fondo
             page.goto('/web/index.php/recruitment/viewCandidates') // Dispara la petición desde la UI
         ]);

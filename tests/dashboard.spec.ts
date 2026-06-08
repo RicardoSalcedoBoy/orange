@@ -1,10 +1,7 @@
-import { expect } from '@playwright/test';
-import { test } from '@fixtures/auth-fixture.ts';
-import DashboardPage from '@pages/dashboard-page.ts';
+import { expect, test } from '@fixtures/base-test.ts';
 
 test.describe('dashboard tests', () => {
-    test('dashboard page elements should be visible', async ( { page, loggedInPage }) => {
-        const dashboardPage = new DashboardPage(page);
+    test('dashboard page elements should be visible', async ( { page, loggedInPage, dashboardPage }) => {
         await expect(page).toHaveURL(/dashboard/);
         await dashboardPage.goToRecruitment();
         await expect(page).toHaveURL(/viewCandidates/);
