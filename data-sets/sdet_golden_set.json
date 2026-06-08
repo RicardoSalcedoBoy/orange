@@ -1,0 +1,27 @@
+[
+  {
+    "evalId": "GOLDEN-REVIEW-001",
+    "description": "Validar endpoint complejo con herramientas mixtas",
+    "inputs": {
+      "jiraId": "QA-205",
+      "prUrl": "https://github.com"
+    },
+    "assertions": {
+      "expectedJsonFields": [
+        "summary",
+        "tools_required",
+        "test_cases",
+        "risk_analysis" // Validamos que la IA haya hecho el análisis de riesgos
+      ],
+      "mandatoryKeywordsInPlan": [
+        "Playwright", // Debe sugerir automatización
+        "Postman",    // Debe sugerir exploración manual
+        "security"
+      ],
+      "forbiddenKeywords": [
+        "Selenium",   // Herramienta legacy que no queremos usar
+        "Excel"       // No queremos reportes manuales en Excel
+      ]
+    }
+  }
+]
